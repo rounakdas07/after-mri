@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f5f0">
+  <meta name="description" content="Did faster MRI reporting get patients to biopsy sooner? A simple, transparent pathway audit by Rounak Das. Try the synthetic example or check an anonymous CSV locally.">
+  <meta property="og:title" content="After MRI — faster reports, earlier biopsies?">
+  <meta property="og:description" content="See where waiting time moves in a prostate cancer pathway. A working audit prototype by Rounak Das. Synthetic demo; not NHS results.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://rounakdas07.github.io/after-mri/">
+  <meta property="og:image" content="https://rounakdas07.github.io/after-mri/preview.jpg">
+  <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>After MRI — a pathway audit by Rounak Das</title>
+  <link rel="icon" href="mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.mjs"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to audit</a>
+<header class="site-header wrap">
+  <a class="wordmark" href="./" aria-label="After MRI home"><svg aria-hidden="true" viewBox="0 0 32 32"><path d="M3 9h13v14h13M23 17l6 6-6 6"/></svg>After MRI<span class="beta">PROTOTYPE</span></a>
+  <nav aria-label="Main"><a href="#why">Why this exists</a><a href="https://github.com/rounakdas07/after-mri" target="_blank" rel="noopener">Source ↗</a></nav>
+</header>
+<main id="main" class="wrap">
+  <section class="intro" aria-labelledby="title">
+    <div><p class="eyebrow">PROSTATE MRI · PATHWAY EVALUATION</p><h1 id="title">Faster reports.<br><em>Earlier biopsies?</em></h1></div>
+    <div class="intro-copy"><p>See whether time saved on reporting reaches the patient—or becomes a wait for the next step.</p><button class="button primary" id="open-import">Check a CSV <span aria-hidden="true">↗</span></button><span class="micro">No login. Data stays in this browser tab.</span></div>
+  </section>
+
+  <section class="audit" aria-label="Pathway comparison">
+    <div class="example-toolbar"><span class="eyebrow">TRY AN EXAMPLE</span><div class="examples" role="group" aria-label="Synthetic examples"><button data-demo="shifted" aria-pressed="true">Delay moves</button><button data-demo="shorter" aria-pressed="false">Pathway improves</button><button data-demo="immature" aria-pressed="false">Follow-up incomplete</button></div></div>
+    <div class="provenance" id="provenance"><span class="dot" aria-hidden="true"></span><strong>Synthetic example</strong><span>Invented episodes. Not Lucida or NHS results.</span></div>
+    <div class="result-layout" aria-live="polite" aria-atomic="true">
+      <div class="finding">
+        <p class="eyebrow">WHAT THE COMPARISON SHOWS</p>
+        <h2 id="finding-title">Loading the example…</h2>
+        <p id="finding-body"></p>
+        <p class="scope" id="scope"></p>
+      </div>
+      <div class="journey">
+        <div class="chart-title"><h3>Where the days go</h3><span>Mean days after MRI</span></div>
+        <div class="legend"><span><i class="swatch reporting"></i>MRI → report</span><span><i class="swatch downstream"></i>Report → biopsy</span></div>
+        <div id="chart"></div>
+        <div class="chart-key" aria-hidden="true"><span>MRI</span><span>Biopsy</span></div>
+        <p class="chart-foot">Same completed episodes in both stages. Days add up; medians would not.</p>
+      </div>
+    </div>
+    <div class="check-strip" id="check-strip"></div>
+    <div id="warnings" class="warnings" hidden></div>
+    <div class="next-step"><span class="eyebrow">WHAT TO CHECK NEXT</span><p id="next-step"></p></div>
+    <div class="audit-actions"><button class="button primary" id="export-report">Download audit note <span aria-hidden="true">↓</span></button><button class="button quiet" id="print-report">Print / save PDF</button><span>Includes denominators, exclusions and limitations.</span></div>
+  </section>
+
+  <section class="details-section" aria-label="Audit detail">
+    <details id="cohort-details"><summary><span>01</span>Who is included?<span class="summary-end">Counts &amp; intervals <b aria-hidden="true">+</b></span></summary><div class="detail-body"><p>Only episodes with at least <strong>28 days of follow-up after MRI</strong> enter the audit. The waiting-time comparison uses the subset with a biopsy within 28 days and both intervals recorded. A shorter average can hide people still waiting: always read the counts alongside it.</p><div class="table-scroll"><table id="cohort-table"><caption>Included episodes and descriptive measures</caption><thead><tr><th scope="col">Measure</th><th scope="col">Before</th><th scope="col">After</th></tr></thead><tbody></tbody></table></div><p class="small">“Pending”, “not planned” and “unknown” describe status at extraction. No biopsy planned is not a negative cancer diagnosis. A zero-day interval means the same calendar day only if the source uses calendar-day differences.</p></div></details>
+    <details id="comparison-details"><summary><span>02</span>Is this a fair comparison?<span class="summary-end">Your checks <b aria-hidden="true">+</b></span></summary><div class="detail-body"><p>Check these with the study team. They are recorded in the audit note, but the tool cannot verify them or adjust for differences.</p><div class="checklist"><label><input type="checkbox" value="Same site, eligibility and referral population checked."> Same site, eligibility and referral population</label><label><input type="checkbox" value="Comparable clinical risk / case mix checked."> Comparable clinical risk and case mix</label><label><input type="checkbox" value="Consistent report milestone and date definitions checked."> Consistent report milestone and date definitions</label><label><input type="checkbox" value="Staffing, booking capacity, seasonality and other pathway changes reviewed."> Staffing, booking capacity and other pathway changes reviewed</label><label><input type="checkbox" value="Consecutive episodes, follow-up maturity and missingness reviewed."> Consecutive episodes, follow-up and missingness reviewed</label></div><p class="small">Completing this checklist does not establish causation. Diagnostic accuracy, cancers missed, complications and clinical outcomes require separate evaluation.</p></div></details>
+    <details id="method"><summary><span>03</span>How the audit works<span class="summary-end">Method &amp; sources <b aria-hidden="true">+</b></span></summary><div class="detail-body method-grid"><div><h3>A deliberately narrow question</h3><p>For each period, calculate the mean of MRI-to-report and report-to-biopsy intervals on the same complete episodes. Their sum equals the mean MRI-to-biopsy interval. Compare after minus before.</p><p>The fixed 28-day observation window is a <strong>prototype design choice</strong>, not the NHS Faster Diagnosis Standard, a clinical target or a NICE requirement. Longer waits remain visible in the counts, but do not enter the interval chart.</p><p>Median and 90th percentile are also shown. Quantiles use linear interpolation. No significance test, risk adjustment or causal estimate is supplied. Rounding to one decimal can hide differences smaller than 0.05 days.</p><h3>What this cannot establish</h3><p>Restricting analysis to completed biopsies creates selection bias. This is an exploratory audit, not proof that AI works, saves lives, avoids biopsies or is cost-effective. It does not measure histology turnaround or time to diagnosis. Review locally before any service use.</p></div><div><h3>Sources behind the question</h3><ol class="sources"><li><a href="https://gmcancer.org.uk/ai-prostate-cancer-detection/" target="_blank" rel="noopener">Greater Manchester Cancer Alliance ↗</a><p>Describes Pi’s four-trust rollout and a service evaluation of diagnostic impact.</p></li><li><a href="https://www.leedsth.nhs.uk/news/new-ai-pilot-to-speed-up-prostate-cancer-diagnosis-in-leeds/" target="_blank" rel="noopener">Leeds Teaching Hospitals · 28 Oct 2025 ↗</a><p>Describes a pilot connecting priority MRI review to same-day biopsy.</p></li><li><a href="https://lucidamedical.com/lucida-medical-welcomes-nice-draft-recommendations-on-ai-support-for-prostate-cancer-diagnosis/" target="_blank" rel="noopener">Lucida Medical · 27 Oct 2026 ↗</a><p>Discusses NICE’s draft proposals and further evidence in routine practice. This is not a claim of final NICE approval.</p></li><li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC13282241/" target="_blank" rel="noopener">Sushentsev et al. · European Radiology, 2026 ↗</a><p>Retrospective biopsy-efficiency research explains why prospective pathway outcomes and follow-up matter.</p></li></ol><p class="small">Reviewed 18 November 2026. Sources motivate the audit question; none supplies the demo numbers or endorses this prototype.</p></div></div></details>
+  </section>
+
+  <section class="why" id="why"><p class="eyebrow">BUILT FOR A REAL IMPLEMENTATION QUESTION</p><div><h2>Measure the pathway.<br><em>Not just the report.</em></h2><div><p>Lucida’s Pi helps radiologists assess prostate MRI. Its NHS pilots also ask what changes for patients. This prototype turns a small, consistently defined data extract into a transparent before-and-after audit.</p><p>It is an independent contribution for discussion with Lucida’s clinical team. I have not seen their internal evaluation tools, and this may overlap with work they already do.</p><p class="byline"><strong>Rounak Das</strong><span>Medical student, University of Nottingham<br>AI-assisted design and development</span></p><a href="https://github.com/rounakdas07/after-mri/blob/main/docs/BRIEF.md" target="_blank" rel="noopener">Read the research and build brief ↗</a></div></div></section>
+</main>
+<footer class="wrap"><span>After MRI · Independent research prototype</span><span>Not affiliated with Lucida Medical, the NHS or NICE.</span><a href="https://github.com/rounakdas07/after-mri" target="_blank" rel="noopener">Open source ↗</a></footer>
+
+<dialog id="import-dialog" aria-labelledby="import-title">
+  <div class="dialog-top"><p class="eyebrow">YOUR PATHWAY EXTRACT</p><button class="close" id="close-import" aria-label="Close CSV import">×</button></div>
+  <h2 id="import-title">Five columns.<br>One clear comparison.</h2>
+  <p>Use synthetic or institution-approved, fully anonymous data only. No names, dates, IDs or free-text notes. Files are read locally, never sent or saved by this app.</p>
+  <div class="import-links"><a href="template.csv" download>Download blank template ↓</a><button id="download-example" class="text-button">Download example CSV ↓</button></div>
+  <label class="file-label" for="csv-file">Choose a CSV file <span>Up to 10,000 episodes · 1.5 MB</span></label><input type="file" id="csv-file" accept=".csv,text/csv">
+  <details class="paste-details"><summary>Or paste CSV text</summary><label class="sr-only" for="csv-text">CSV text</label><textarea id="csv-text" rows="5" placeholder="period,biopsy_status,mri_to_report_days,mri_to_biopsy_days,followup_days" spellcheck="false"></textarea><button class="button primary" id="analyse-paste">Check pasted CSV</button></details>
+  <p id="import-error" role="alert" hidden></p>
+  <details class="column-guide"><summary>Column definitions &amp; preparation</summary><dl><dt>period</dt><dd><code>before</code> or <code>after</code>. Use consecutive, comparable cohorts at one site.</dd><dt>biopsy_status</dt><dd><code>completed</code>, <code>pending</code>, <code>not_planned</code> or <code>unknown</code> at extraction. Do not treat missing outcomes as no biopsy needed.</dd><dt>mri_to_report_days</dt><dd>Days from MRI to the agreed clinical report milestone. Blank if unavailable. Use the same definition in both periods.</dd><dt>mri_to_biopsy_days</dt><dd>Days from MRI to biopsy. Only for completed biopsies; blank if missing. Must not precede the report.</dd><dt>followup_days</dt><dd>Days from MRI to the extraction cutoff, even if biopsy occurred earlier. Required for every episode. Less than 28 days is excluded.</dd></dl><p class="small">Calculate intervals inside your approved environment before exporting. Use one row per episode, deduplicate locally and remove identifiers. This tool cannot detect duplicate episodes. Decimals are allowed; unknown values must be blank, not zero. Use a decimal point and comma separators.</p></details>
+</dialog>
+<div id="toast" role="status" class="toast" hidden></div>
+<noscript><p class="wrap">Enable JavaScript to explore the audit. You can still read the method and download the template.</p></noscript>
+</body></html>
