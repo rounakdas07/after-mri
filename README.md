@@ -6,7 +6,7 @@
 
 After MRI turns a five-column, anonymous pathway extract into a before-and-after comparison. It separates MRI-to-report time from the later wait to biopsy, keeps the analysed population explicit, and produces a downloadable audit note.
 
-![After MRI — a simple pathway comparison with a clearly labelled synthetic example](preview.jpg)
+![After MRI — a simple pathway comparison with a clearly labelled synthetic example](docs/screenshot.jpg)
 
 Built by **Rounak Das**, a medical student at the University of Nottingham, with AI-assisted research, design and development. An independent prototype for discussion with Lucida Medical's clinical team; **not commissioned, affiliated, clinically validated or endorsed** by Lucida Medical, the NHS or NICE.
 
